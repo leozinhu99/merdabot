@@ -42,10 +42,10 @@ def handle(update):
     texto=update['text']
     chat_id=update['chat']['id']
     if texto=="/merda" or texto=="/merda@Merdamerdabot":
-        contagem=contagem_incremento("estatisticas2.txt",chat_id, True)
+        contagem=contagem_incremento("estatisticas.txt",chat_id, True)
         boto.sendMessage(chat_id,"merda\n"*contagem)
     elif texto=="/stat" or texto=="/stat@Merdamerdabot":
-        contagem=contagem_incremento("estatisticas2.txt",chat_id,False)
+        contagem=contagem_incremento("estatisticas.txt",chat_id,False)
         if update['chat']['type']=='group':
             mensagem="Fui chamado "+str(contagem)+" vezes no chat "+update['chat']['title']+".\n"+update['from']['first_name']+", seu merda!"
         else:
