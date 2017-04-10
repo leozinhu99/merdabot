@@ -37,7 +37,7 @@ def contagem_incremento(addr, chat_id, incrementa):
 
 def handle(update):
     registro=open('log.txt','a')
-    registro.write(str(update)+'\n'+'xxxx')
+    registro.write(str(update)+'\n')
     registro.close()
     texto=update['text']
     chat_id=update['chat']['id']
