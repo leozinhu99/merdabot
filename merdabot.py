@@ -58,6 +58,6 @@ def handle(update):
 
 
 
-boto.message_loop(handle,0.1,20,None,None,True,20,True)
+boto.message_loop(handle,0.1,20,None,None,True,20,False)
 #KeyboardInterrupt nao funciona
 #run_forever e necessario pra rodar fora do IDLE
