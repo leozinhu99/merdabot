@@ -1,0 +1,1 @@
+{u'from': {u'first_name': u'Leonardo', u'last_name': u'Mendon\xe7a', u'id': 174129995}, u'text': u'/merda', u'entities': [{u'length': 6, u'type': u'bot_command', u'offset': 0}], u'chat': {u'first_name': u'Leonardo', u'last_name': u'Mendon\xe7a', u'type': u'private', u'id': 174129995}, u'date': 1491860219, u'message_id': 193}
