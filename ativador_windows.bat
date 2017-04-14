@@ -8,6 +8,6 @@ set /a contagem+=1
 if contagem==50 goto a
 
 set contagem=0
-git commit -m "segue a vida"
+git commit -a -m "segue a vida"
 git push merdabot master
 goto a
