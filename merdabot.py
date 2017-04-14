@@ -13,7 +13,8 @@
 
 import telepot
 boto=telepot.Bot("278859188:AAEIrp4ydKGe9AQWy59fbCRLsnpw6mQUFN8")
-boto.getMe()
+
+offset=int(open("offset.txt","r").readline())
 
 def contagem_incremento(addr, chat_id, incrementa):
     
@@ -35,7 +36,11 @@ def contagem_incremento(addr, chat_id, incrementa):
     return count
 
 
-def handle(update):
+def tratador(update):
+    global offset
+    update=update["message"]
+    offset= update['date']+1
+    print "estou recebendo"
     registro=open('log.txt','a')
     registro.write(str(update)+'\n')
     registro.close()
@@ -54,10 +59,23 @@ def handle(update):
     elif texto=="/melda" or texto=="/melda@Merdamerdabot":
         boto.sendMessage(chat_id, "chola mais")
     
+def recebedor(bot, handle):
+    global offset
+    mensagens=bot.getUpdates(offset, 100, 5, ["bot_command"])
+    for msg in mensagens:
+        handle(msg)
+
+recebedor(boto, tratador)
+open("offset.txt","w").write(str(offset))
 
 
 
 
-boto.message_loop(handle,0.1,20,None,None,True,20,False)
+    
+
+
+print "cheguei no fim"
+
+#boto.message_loop(handle,0.1,20,None,None,True,20,False)
 #KeyboardInterrupt nao funciona
 #run_forever e necessario pra rodar fora do IDLE
