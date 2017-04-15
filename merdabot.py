@@ -78,7 +78,7 @@ def recebedor(bot, handle):
 
 #termina a execucao depois de 30 minutos para o arquivo .bat prosseguir e sincronizar com o git
 t0=time.time()
-while time.time()-t0<18: 
+while time.time()-t0<1800: 
     recebedor(boto, tratador)
     open("offset.txt","w").write(str(offset))
 
