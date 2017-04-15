@@ -76,8 +76,9 @@ def recebedor(bot, handle):
         except MensagemErrada:
             pass
 
-#termina a execucao depois de 50 updates para o arquivo .bat prosseguir e sincronizar com o git
-for i in range(50): 
+#termina a execucao depois de 30 minutos para o arquivo .bat prosseguir e sincronizar com o git
+t0=time.time()
+while time.time()-t0<18: 
     recebedor(boto, tratador)
     open("offset.txt","w").write(str(offset))
 
