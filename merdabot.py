@@ -45,13 +45,11 @@ def contagem_incremento(addr, chat_id, incrementa):
 
 def tratador(update):
     global offset
-    offset=update["update_id"]+1
-    print update
-    
+    offset=update["update_id"]+1    
     update=update["message"]
-    registro=open('log.txt','a')
-    registro.write(str(update)+'\n')
-    registro.close()
+##    registro=open('log.txt','a')
+##    registro.write(str(update)+'\n')
+##    registro.close()
     if not 'text' in update:
         raise MensagemErrada
     texto=update['text']
@@ -78,18 +76,14 @@ def recebedor(bot, handle):
         except MensagemErrada:
             pass
 
-
-recebedor(boto, tratador)
-print offset
-open("offset.txt","w").write(str(offset))
+for i in range(10):
+    recebedor(boto, tratador)
+    open("offset.txt","w").write(str(offset))
 
 
 
 
     
-
-
-print "cheguei no fim"
 
 #boto.message_loop(handle,0.1,20,None,None,True,20,False)
 #KeyboardInterrupt nao funciona
