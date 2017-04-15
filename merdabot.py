@@ -1,20 +1,27 @@
 ##{u'username': u'Merdamerdabot', u'first_name': u'Merdabot', u'id': 305298639}
-#!-*- conding: utf8 -*-
+#!-*- encoding: utf8 -*-
 
 # Usando getUpdates():
+#getUpdates(self, offset=None, limit=None, timeout=None, allowed_updates=None)
+#offset deve ser o update_id do ultimo update recebido + 1 (update_id nao tem nada a ver com tempo)
 #formato do update: vem uma lista em que cada elemento e um dicionario correspondendo a uma mensagem
 #cada mensagem e um dicionario com apenas duas chaves: 'message' e 'update_id'
 #estranhamente, u'message' e uma forma de escrever 'message'
-#coisas que podem ser interessantesdentro de 'message': 'text' e o texto da mensagem; 'chat' e um dicionario com informacoes sobre a conversa  e 'from' e um dicionario indicando o remetente da mensagem
+#coisas que podem ser interessantes dentro de 'message': 'text' e o texto da mensagem; 'chat' e um dicionario com informacoes sobre a conversa  e 'from' e um dicionario indicando o remetente da mensagem
 
 # Usando message_loop e handle:
 #recebe-se direto o dicionario associado a chave 'message'
 
 
 import telepot
+import time
 boto=telepot.Bot("278859188:AAEIrp4ydKGe9AQWy59fbCRLsnpw6mQUFN8")
 
 offset=int(open("offset.txt","r").readline())
+
+
+class MensagemErrada(Exception):
+    pass
 
 def contagem_incremento(addr, chat_id, incrementa):
     
@@ -38,12 +45,15 @@ def contagem_incremento(addr, chat_id, incrementa):
 
 def tratador(update):
     global offset
+    offset=update["update_id"]+1
+    print update
+    
     update=update["message"]
-    offset= update['date']+1
-    print "estou recebendo"
     registro=open('log.txt','a')
     registro.write(str(update)+'\n')
     registro.close()
+    if not 'text' in update:
+        raise MensagemErrada
     texto=update['text']
     chat_id=update['chat']['id']
     if texto=="/merda" or texto=="/merda@Merdamerdabot":
@@ -61,11 +71,16 @@ def tratador(update):
     
 def recebedor(bot, handle):
     global offset
-    mensagens=bot.getUpdates(offset, 100, 5, ["bot_command"])
+    mensagens=bot.getUpdates(offset, 100, 10, ["bot_command"])
     for msg in mensagens:
-        handle(msg)
+        try:
+            handle(msg)
+        except MensagemErrada:
+            pass
+
 
 recebedor(boto, tratador)
+print offset
 open("offset.txt","w").write(str(offset))
 
 
